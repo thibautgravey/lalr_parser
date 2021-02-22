@@ -1,42 +1,51 @@
 /*************************************************************************
-						    Lexer  -  Header file
+						   Automate  -  Header file
 							 -------------------
 	début                : 23/02/2021
-	copyright            : (C) 2021 par LG, INSA LYON
+	copyright            : (C) 2021 par BRANCHEREAU Corentin, GRAVEY Thibaut
 *************************************************************************/
 
-//---------- Interface de la classe <Lexer> (fichier lexer.h) ------
-#pragma once
+//---------- Interface de la classe <Automate> (fichier automate.h) ------
+#ifndef LALR_PARSER_AUTOMATE_H
+#define LALR_PARSER_AUTOMATE_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
+#include "lexer.h"
 #include "symbole.h"
+#include "etat.h"
+#include <stack>
 
-using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Lexer>
+// Rôle de la classe <Automate>
 //
 //
 //------------------------------------------------------------------------
-class Lexer {
+
+class Automate {
     //----------------------------------------------------------------- PUBLIC
     public:
         //-------------------------------------------- Constructeurs - destructeur
-        Lexer(string s) : flux(s), tete(0), tampon(nullptr) {}
-        ~Lexer() {}
+        Automate(Lexer *l) : lexer(l){}
+
+        ~Automate();
 
         //----------------------------------------------------- Méthodes publiques
-        Symbole *Consulter();
-        void Avancer();
+        void lecture();
+        void decalage(Symbole *s, Etat *e);
+        void reduction(int n, Symbole *s);
+        Symbole popSymbole();
+        void popAndDestroySymbole();
 
     //------------------------------------------------------------------ PRIVE
     protected:
         //----------------------------------------------------- Attributs protégés
-        string flux;
-        int tete;
-        Symbole *tampon;
+        stack<Etat *> stateStack;
+        stack<Symbole *> symbolStack;
+        Lexer *lexer;
 };
+
+#endif //LALR_PARSER_AUTOMATE_H

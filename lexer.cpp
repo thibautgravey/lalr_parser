@@ -1,8 +1,8 @@
 /*************************************************************************
 						  Lexer  -  Implementation
 							 -------------------
-	début                : 22/02/2020
-	copyright            : (C) 2020 par LG, INSA LYON
+	début                : 23/02/2021
+	copyright            : (C) 2021 par LG, INSA LYON
 *************************************************************************/
 
 //---------- Réalisation de la classe <Lexer> (fichier lexer.cpp) --
