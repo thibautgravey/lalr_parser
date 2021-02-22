@@ -1,20 +1,42 @@
+/*************************************************************************
+						    Lexer  -  Header file
+							 -------------------
+	début                : 22/02/2020
+	copyright            : (C) 2020 par LG, INSA LYON
+*************************************************************************/
+
+//---------- Interface de la classe <Lexer> (fichier lexer.h) ------
 #pragma once
 
+//--------------------------------------------------- Interfaces utilisées
 #include <string>
 #include "symbole.h"
+
 using namespace std;
+//------------------------------------------------------------- Constantes
 
+//------------------------------------------------------------------ Types
+
+//------------------------------------------------------------------------
+// Rôle de la classe <Lexer>
+//
+//
+//------------------------------------------------------------------------
 class Lexer {
+    //----------------------------------------------------------------- PUBLIC
+    public:
+        //-------------------------------------------- Constructeurs - destructeur
+        Lexer(string s) : flux(s), tete(0), tampon(nullptr) {}
+        ~Lexer() {}
 
-   public:
-      Lexer(string s) : flux(s), tete(0), tampon(nullptr) { }
-      ~Lexer() { }
+        //----------------------------------------------------- Méthodes publiques
+        Symbole *Consulter();
+        void Avancer();
 
-      Symbole * Consulter();
-      void Avancer();
-
-   protected:
-      string flux;
-      int tete;
-      Symbole * tampon;
+    //------------------------------------------------------------------ PRIVE
+    protected:
+        //----------------------------------------------------- Attributs protégés
+        string flux;
+        int tete;
+        Symbole *tampon;
 };
