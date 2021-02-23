@@ -33,7 +33,7 @@ class Automate {
             stateStack.push(new Etat0);
         }
 
-        ~Automate();
+        ~Automate() {}
 
         //----------------------------------------------------- Méthodes publiques
         void lecture();
