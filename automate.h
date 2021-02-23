@@ -29,7 +29,7 @@ class Automate {
     //----------------------------------------------------------------- PUBLIC
     public:
         //-------------------------------------------- Constructeurs - destructeur
-        Automate(Lexer *l) : lexer(l){
+        Automate(Lexer *l) : lexer(l), errorFlag(false){
             stateStack.push(new Etat0);
         }
 
@@ -41,12 +41,14 @@ class Automate {
         void reduction(int n, Symbole *s);
         Symbole* popSymbole();
         void popAndDestroySymbole();
+        void setError();
 
     //------------------------------------------------------------------ PRIVE
     protected:
         //----------------------------------------------------- Attributs protégés
         stack<Etat *> stateStack;
         stack<Symbole *> symbolStack;
+        bool errorFlag;
         Lexer *lexer;
 };
 

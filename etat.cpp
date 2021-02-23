@@ -31,6 +31,7 @@ bool Etat0::transition(Automate &automate, Symbole *s) {
 			automate.decalage(s,new Etat1);
 			break;
 		default:
+		    automate.setError();
             cout << "Erreur E0" << endl;
             cout << "Attendu : INT, OPENPAR, EXPR" << endl;
             cout << "Obtenu : ";
@@ -52,6 +53,7 @@ bool Etat1::transition(Automate &automate, Symbole *s) {
 		case FIN:
 			return true;
 		default:
+            automate.setError();
 			cout << "Erreur E1" << endl;
             cout << "Attendu : PLUS, MULT, FIN, EXPR" << endl;
             cout << "Obtenu : ";
@@ -74,6 +76,7 @@ bool Etat2::transition(Automate &automate, Symbole *s) {
 			automate.decalage(s,new Etat6);
 			break;
 		default:
+            automate.setError();
 			cout << "Erreur E2" << endl;
             cout << "Attendu : INT, OPENPAR, EXPR" << endl;
             cout << "Obtenu : ";
@@ -95,6 +98,7 @@ bool Etat3::transition(Automate &automate, Symbole *s) {
 			automate.reduction(3, new Expr(e1->getValeur()));
 			break;
 		default:
+            automate.setError();
             cout << "Erreur E3" << endl;
             cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
             cout << "Obtenu : ";
@@ -117,6 +121,7 @@ bool Etat4::transition(Automate &automate, Symbole *s) {
 			automate.decalage(s,new Etat7);
 			break;
 		default:
+            automate.setError();
 			cout << "Erreur E4" << endl;
             cout << "Attendu : INT, OPENPAR, EXPR" << endl;
             cout << "Obtenu : ";
@@ -140,6 +145,7 @@ bool Etat5::transition(Automate &automate, Symbole *s) {
             automate.decalage(s, new Etat8);
             break;
         default:
+            automate.setError();
             cout << "Erreur E5" << endl;
             cout << "Attendu : INT, OPENPAR, EXPR" << endl;
             cout << "Obtenu : ";
@@ -162,6 +168,7 @@ bool Etat6::transition(Automate &automate, Symbole *s) {
             automate.decalage(s, new Etat9);
             break;
         default:
+            automate.setError();
             cout << "Erreur E6" << endl;
             cout << "Attendu : PLUS, MULT, CLOSEPAR" << endl;
             cout << "Obtenu : ";
@@ -188,6 +195,7 @@ bool Etat7::transition(Automate &automate, Symbole *s) {
             automate.reduction(3, new Expr(e1->getValeur()+e2->getValeur()));
             break;
         default:
+            automate.setError();
             cout << "Erreur E7" << endl;
             cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
             cout << "Obtenu : ";
@@ -212,6 +220,7 @@ bool Etat8::transition(Automate &automate, Symbole *s) {
             automate.reduction(3, new Expr(e1->getValeur()*e2->getValeur()));
             break;
         default:
+            automate.setError();
             cout << "Erreur E8" << endl;
             cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
             cout << "Obtenu : ";
@@ -235,6 +244,7 @@ bool Etat9::transition(Automate &automate, Symbole *s) {
             automate.reduction(3, new Expr(e1->getValeur()));
             break;
         default:
+            automate.setError();
             cout << "Erreur E9" << endl;
             cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
             cout << "Obtenu : ";

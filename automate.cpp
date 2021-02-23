@@ -56,3 +56,7 @@ Symbole* Automate::popSymbole() {
 void Automate::popAndDestroySymbole() {
     symbolStack.pop();
 }
+
+void Automate::setError() {
+    errorFlag = true;
+}
