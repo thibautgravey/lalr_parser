@@ -30,7 +30,7 @@ class Automate {
     public:
         //-------------------------------------------- Constructeurs - destructeur
         Automate(Lexer *l) : lexer(l){
-            stateStack.push(new Etat0())
+            stateStack.push(new Etat0());
         }
 
         ~Automate();
@@ -39,7 +39,7 @@ class Automate {
         void lecture();
         void decalage(Symbole *s, Etat *e);
         void reduction(int n, Symbole *s);
-        Symbole popSymbole();
+        Symbole* popSymbole();
         void popAndDestroySymbole();
 
     //------------------------------------------------------------------ PRIVE

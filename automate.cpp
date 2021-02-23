@@ -12,7 +12,29 @@
 //-------------------------------------------------------- Include système
 
 //------------------------------------------------------ Include personnel
+#include "automate.h"
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+void Automate::lecture() {
+
+}
+
+void Automate::reduction(int n, Symbole *s) {
+    for(int i = 0 ; i<n ; i++){
+        delete(stateStack.top());
+        stateStack.pop();
+    }
+    stateStack.top()->transition(*this,s);
+}
+
+Symbole* Automate::popSymbole() {
+    Symbole* res = symbolStack.top();
+    symbolStack.pop();
+    return res;
+}
+
+void Automate::popAndDestroySymbole() {
+    symbolStack.pop();
+}

@@ -13,10 +13,10 @@
 using namespace std;
 
 //------------------------------------------------------------- Constantes
-const string Etiquettes[] = { "OPENPAR", "CLOSEPAR", "PLUS", "MULT", "INT", "FIN", "ERREUR" };
+const string Etiquettes[] = { "OPENPAR", "CLOSEPAR", "PLUS", "MULT", "INT", "FIN", "ERREUR", "EXPR"};
 
 //------------------------------------------------------------------ Types
-enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR };
+enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR, EXPR };
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Symbole>
@@ -57,5 +57,21 @@ class Entier : public Symbole {
     protected:
         //----------------------------------------------------- Attributs protégés
         int valeur;
+};
+
+class Expr : public Symbole {
+    //----------------------------------------------------------------- PUBLIC
+    public:
+        //-------------------------------------------- Constructeurs - destructeur
+        Expr(int v) : Symbole(EXPR), valeur(v) { }
+        ~Expr() { }
+
+        //----------------------------------------------------- Méthodes publiques
+        virtual void Affiche();
+
+    //------------------------------------------------------------------ PRIVE
+protected:
+    //----------------------------------------------------- Attributs protégés
+    int valeur;
 };
 
