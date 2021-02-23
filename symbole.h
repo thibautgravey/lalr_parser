@@ -36,8 +36,7 @@ class Symbole {
 
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
-
-        bool isTerminal();
+        virtual bool isTerminal();
 
     //------------------------------------------------------------------ PRIVE
     protected:
@@ -54,8 +53,8 @@ class Entier : public Symbole {
 
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
-
-        bool isTerminal();       
+        virtual bool isTerminal();
+        virtual int getValeur();
 
     //------------------------------------------------------------------ PRIVE
     protected:
@@ -72,8 +71,9 @@ class Expr : public Symbole {
 
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
+        virtual bool isTerminal();
+        virtual int getValeur();
 
-        bool isTerminal();
     //------------------------------------------------------------------ PRIVE
 protected:
     //----------------------------------------------------- Attributs protégés

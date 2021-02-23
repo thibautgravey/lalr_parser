@@ -3,7 +3,7 @@ CFLAGS=-g -Wall -Werror -ansi -pedantic -std=c++11
 DFLAGS=
 
 MAIN=lalr
-SRCS= main.cpp lexer.cpp symbole.cpp
+SRCS= main.cpp lexer.cpp symbole.cpp automate.cpp etat.cpp
 OBJS=$(SRCS:.c=.o)
 
 $(MAIN): $(OBJS)
