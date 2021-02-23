@@ -35,6 +35,10 @@ bool Entier::isTerminal(){
 	return false;
 }
 
+int Entier::getValeur() {
+    return valeur;
+}
+
 bool Expr::isTerminal(){
 	return false;
 }
@@ -42,5 +46,9 @@ bool Expr::isTerminal(){
 void Expr::Affiche() {
     Symbole::Affiche();
     cout<<"("<<valeur<<")";
+}
+
+int Expr::getValeur() {
+    return valeur;
 }
 
