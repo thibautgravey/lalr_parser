@@ -73,6 +73,7 @@ class Expr : public Symbole {
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
 
+        bool isTerminal();
     //------------------------------------------------------------------ PRIVE
 protected:
     //----------------------------------------------------- Attributs protégés

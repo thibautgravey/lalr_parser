@@ -22,8 +22,20 @@ void Symbole::Affiche() {
    cout<<Etiquettes[ident];
 }
 
+bool Symbole::isTerminal(){
+	return true;
+}
+
 void Entier::Affiche() {
    Symbole::Affiche();
    cout<<"("<<valeur<<")";
+}
+
+bool Entier::isTerminal(){
+	return false;
+}
+
+bool Expr::isTerminal(){
+	return false;
 }
 

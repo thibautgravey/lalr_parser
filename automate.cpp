@@ -15,13 +15,6 @@
 #include "automate.h"
 //----------------------------------------------------------------- PUBLIC
 
-void Automate::decalage(Symbole *s, Etat *e){
-	symbolStack.push(s);
-	stateStack.push(e);
-	if (s->isTerminal()) {
-		lexer->Avancer();
-	}
-}
 //----------------------------------------------------- Méthodes publiques
 
 //----------------------------------------------------------------- PUBLIC
@@ -29,6 +22,14 @@ void Automate::decalage(Symbole *s, Etat *e){
 //----------------------------------------------------- Méthodes publiques
 void Automate::lecture() {
 
+}
+
+void Automate::decalage(Symbole *s, Etat *e){
+	symbolStack.push(s);
+	stateStack.push(e);
+	if (s->isTerminal()) {
+		lexer->Avancer();
+	}
 }
 
 void Automate::reduction(int n, Symbole *s) {
