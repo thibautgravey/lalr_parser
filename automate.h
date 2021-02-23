@@ -21,8 +21,14 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Automate>
-//
-//
+// L'automate gère les différentes actions de décalage et de réduction
+// à réaliser. Il gère aussi sa pile d'état et de symbole (automate à pile)
+// afin de pouvoir, grâce à une sorte de design pattern STATE d'analyser
+// la chaîne lexicale. De plus, la classe permet aussi une facilité d'accès
+// à la pile des symboles avec des fonctions telles que popSymbole ou
+// popAndDestroy.
+// Enfin, un flag d'erreur permet de vérifier à la fin de l'analyse
+// si une erreur a été détectée ou non durant le parsage.
 //------------------------------------------------------------------------
 
 class Automate {

@@ -19,8 +19,8 @@ using namespace std;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Lexer>
-//
-//
+// Analyseur lexical trivial permettant la lecture de symbole telles que
+// la parenthèse ouvrante, fermante, les signes + et * ainsi que des entiers.
 //------------------------------------------------------------------------
 class Lexer {
     //----------------------------------------------------------------- PUBLIC

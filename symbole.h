@@ -20,8 +20,9 @@ enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR, EXPR };
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Symbole>
-//
-//
+// Permet la représentation des éléments lus par le lexer. L'affichage,
+// l'évaluation d'un symbole et ses propriétés terminales ou non sont gérées
+// par le polymorphisme de cette classe.
 //------------------------------------------------------------------------
 
 class Symbole {

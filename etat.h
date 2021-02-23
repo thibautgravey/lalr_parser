@@ -18,8 +18,10 @@ class Automate;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Etat>
-//
-//
+// Implémentation d'une sorte de design pattern STATE permettant, selon
+// l'état dans lequel l'automate se trouve, d'utiliser le polymorphisme
+// afin d'effectuer la transition nécessire suivant le symbole lu sur la
+// tête de lecture de l'analyseur lexical.
 //------------------------------------------------------------------------
 
 class Etat {
