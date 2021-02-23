@@ -24,10 +24,14 @@ void Automate::lecture() {
 	Symbole * s;
 	bool end = false;
 	while(!end) {
+		s = lexer->Consulter();
 		end = stateStack.top()->transition(*this,s);
-		cout<<endl;
 	}
-	cout << "le résultat final est:" << symbolStack.top() << endl;
+	if(!this->errorFlag){
+		cout << "le résultat final est:";
+		symbolStack.top()->Affiche();
+		cout << endl;
+	}
 }
 
 void Automate::decalage(Symbole *s, Etat *e){
