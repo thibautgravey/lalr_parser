@@ -10,7 +10,7 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-
+#include <iostream>
 //------------------------------------------------------ Include personnel
 #include "automate.h"
 //----------------------------------------------------------------- PUBLIC
@@ -21,7 +21,12 @@
 
 //----------------------------------------------------- Méthodes publiques
 void Automate::lecture() {
-
+	Symbole * s;
+	while(*(s=lexer->Consulter())!=FIN) {
+		s->Affiche();
+		stateStack.top()->transition(*this,s);
+		cout<<endl;
+	}
 }
 
 void Automate::decalage(Symbole *s, Etat *e){
