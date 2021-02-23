@@ -30,7 +30,7 @@ void Automate::lecture() {
 		end = stateStack.top()->transition(*this,s);
 	}
 	if(!this->errorFlag){
-		cout << "le résultat final est:";
+		cout << "Resultat final après analyse LALR : ";
 		symbolStack.top()->Affiche();
 		cout << endl;
 	}
