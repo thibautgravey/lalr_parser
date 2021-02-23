@@ -30,7 +30,6 @@ class Etat {
         virtual ~Etat() { }
 
         //----------------------------------------------------- Méthodes publiques
-        void print() const;
         virtual bool transition(Automate &automate, Symbole *s) = 0;
 };
 
