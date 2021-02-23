@@ -25,6 +25,8 @@ void Automate::lecture() {
 	bool end = false;
 	while(!end) {
 		s = lexer->Consulter();
+		s->Affiche();
+		cout << endl;
 		end = stateStack.top()->transition(*this,s);
 	}
 	if(!this->errorFlag){

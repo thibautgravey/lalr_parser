@@ -32,7 +32,7 @@ void Entier::Affiche() {
 }
 
 bool Entier::isTerminal(){
-	return false;
+	return true;
 }
 
 int Entier::getValeur() {

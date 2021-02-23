@@ -20,6 +20,7 @@
 
 //----------------------------------------------------- Méthodes publiques
 bool Etat0::transition(Automate &automate, Symbole *s) {
+	cout << "E0" <<endl;
 	switch(*s) {
 		case INT:
 			automate.decalage(s, new Etat3);
@@ -43,6 +44,7 @@ bool Etat0::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat1::transition(Automate &automate, Symbole *s) {
+	cout << "E1" <<endl;
 	switch(*s) {
 		case PLUS:
 			automate.decalage(s, new Etat4);
@@ -65,6 +67,7 @@ bool Etat1::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat2::transition(Automate &automate, Symbole *s) {
+	cout << "E2" <<endl;
 	switch(*s) {
 		case INT:
 			automate.decalage(s, new Etat3);
@@ -88,6 +91,7 @@ bool Etat2::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat3::transition(Automate &automate, Symbole *s) {
+	cout << "E3" <<endl;
 	Entier *e1;
 	switch(*s) {
 		case PLUS:
@@ -95,7 +99,7 @@ bool Etat3::transition(Automate &automate, Symbole *s) {
 		case CLOSEPAR:
 		case FIN:
 		    e1 = (Entier*) automate.popSymbole();
-			automate.reduction(3, new Expr(e1->getValeur()));
+			automate.reduction(1, new Expr(e1->getValeur()));
 			break;
 		default:
             automate.setError();
@@ -110,6 +114,7 @@ bool Etat3::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat4::transition(Automate &automate, Symbole *s) {
+	cout << "E4" <<endl;
 	switch(*s) {
 		case INT:
 			automate.decalage(s,new Etat3);
@@ -134,6 +139,7 @@ bool Etat4::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat5::transition(Automate &automate, Symbole *s) {
+	cout << "E5" <<endl;
     switch (*s) {
         case INT:
             automate.decalage(s, new Etat3);
@@ -157,7 +163,8 @@ bool Etat5::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat6::transition(Automate &automate, Symbole *s) {
-    switch (*s) {
+    cout << "E6" <<endl;
+	switch (*s) {
         case PLUS:
             automate.decalage(s, new Etat4);
             break;
@@ -180,7 +187,8 @@ bool Etat6::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat7::transition(Automate &automate, Symbole *s) {
-    Expr *e1;
+    cout << "E7" <<endl;
+	Expr *e1;
     Expr *e2;
     switch (*s) {
         case MULT:
@@ -207,7 +215,8 @@ bool Etat7::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat8::transition(Automate &automate, Symbole *s) {
-    Expr *e1;
+    cout << "E8" <<endl;
+	Expr *e1;
     Expr *e2;
     switch (*s) {
         case PLUS:
@@ -232,7 +241,8 @@ bool Etat8::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat9::transition(Automate &automate, Symbole *s) {
-    Expr *e1;
+    cout << "E9" <<endl;
+	Expr *e1;
     switch (*s) {
         case PLUS:
         case MULT:
