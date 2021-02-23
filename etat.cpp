@@ -89,6 +89,9 @@ bool Etat2::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat3::transition(Automate &automate, Symbole *s) {
+	Expr *e1;
+	int valeur;
+	
 	switch(*s) {
 		case PLUS:
 		case MULT:
@@ -98,7 +101,9 @@ bool Etat3::transition(Automate &automate, Symbole *s) {
 			break;
 
 		case EXPR:
-			automate.decalage(s,new Etat6());
+		e1 = (Expr*) automate.popSymbole();
+		valeur = *e1;
+			automate.reduction( 1, new Expr(valeur) );
 			break;
 		
 		default:

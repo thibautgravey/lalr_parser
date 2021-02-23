@@ -22,11 +22,13 @@
 //----------------------------------------------------- Méthodes publiques
 void Automate::lecture() {
 	Symbole * s;
-	while(*(s=lexer->Consulter())!=FIN) {
+	bool end = false;
+	while(!end) {
 		s->Affiche();
-		stateStack.top()->transition(*this,s);
+		end = stateStack.top()->transition(*this,s);
 		cout<<endl;
 	}
+	
 }
 
 void Automate::decalage(Symbole *s, Etat *e){
