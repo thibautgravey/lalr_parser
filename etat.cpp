@@ -51,9 +51,6 @@ bool Etat1::transition(Automate &automate, Symbole *s) {
 			break;
 		case FIN:
 			return true;
-		case EXPR:
-			automate.decalage(s,new Etat1);
-			break;
 		default:
 			cout << "Erreur E1" << endl;
             cout << "Attendu : PLUS, MULT, FIN, EXPR" << endl;
@@ -88,24 +85,22 @@ bool Etat2::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat3::transition(Automate &automate, Symbole *s) {
-	Expr *e1;
-	int valeur;
-
+	Entier *e1;
 	switch(*s) {
 		case PLUS:
 		case MULT:
 		case CLOSEPAR:
 		case FIN:
-			automate.reduction(3, s);
-			break;
-		case EXPR:
-		e1 = (Expr*) automate.popSymbole();
-		valeur = *e1;
-			automate.reduction( 1, new Expr(valeur) );
+		    e1 = (Entier*) automate.popSymbole();
+			automate.reduction(3, new Expr(e1->getValeur()));
 			break;
 		default:
-			cout << "erreur etat3" << endl;
-			break;
+            cout << "Erreur E3" << endl;
+            cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
+            cout << "Obtenu : ";
+            s->Affiche();
+            cout << endl;
+            return true;
 	}
 	return false;
 }
@@ -119,7 +114,7 @@ bool Etat4::transition(Automate &automate, Symbole *s) {
 			automate.decalage(s,new Etat2);
 			break;
 		case EXPR:
-			automate.decalage(s,new Etat6);
+			automate.decalage(s,new Etat7);
 			break;
 		default:
 			cout << "Erreur E4" << endl;
