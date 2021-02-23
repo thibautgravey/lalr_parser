@@ -52,7 +52,7 @@ bool Etat5::transition(Automate &automate, Symbole *s) {
             break;
         default:
             cout << "Erreur E5" << endl;
-            break;
+            return true;
     }
     return false;
 }
@@ -70,12 +70,14 @@ bool Etat6::transition(Automate &automate, Symbole *s) {
             break;
         default:
             cout << "Erreur E6" << endl;
-            break;
+            return true;
     }
     return false;
 }
 
 bool Etat7::transition(Automate &automate, Symbole *s) {
+    Expr *e1;
+    Expr *e2;
     switch (*s) {
         case MULT:
             automate.decalage(s, new Etat5);
@@ -83,37 +85,53 @@ bool Etat7::transition(Automate &automate, Symbole *s) {
         case PLUS:
         case CLOSEPAR:
         case FIN:
-            Expr *e1 = (Expr*) automate.popSymbole();
+            e1 = (Expr*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expr *e2 = (Expr*) automate.popSymbole();
-            automate.reduction(3, new Expr());
+            e2 = (Expr*) automate.popSymbole();
+            automate.reduction(3, new Expr(e1->getValeur()+e2->getValeur()));
             break;
+        default:
+            cout << "Erreur E7" << endl;
+            return true;
     }
     return false;
 }
 
 bool Etat8::transition(Automate &automate, Symbole *s) {
+    Expr *e1;
+    Expr *e2;
     switch (*s) {
         case PLUS:
         case MULT:
         case CLOSEPAR:
         case FIN:
-            automate.reduction()
+            e1 = (Expr*) automate.popSymbole();
+            automate.popAndDestroySymbole();
+            e2 = (Expr*) automate.popSymbole();
+            automate.reduction(3, new Expr(e1->getValeur()*e2->getValeur()));
             break;
+        default:
+            cout << "Erreur E8" << endl;
+            return true;
     }
     return false;
 }
 
 bool Etat9::transition(Automate &automate, Symbole *s) {
+    Expr *e1;
     switch (*s) {
         case PLUS:
-            break;
         case MULT:
-            break;
         case CLOSEPAR:
-            break;
         case FIN:
+            automate.popAndDestroySymbole();
+            e1 = (Expr*) automate.popSymbole();
+            automate.popAndDestroySymbole();
+            automate.reduction(3, new Expr(e1->getValeur()));
             break;
+        default:
+            cout << "Erreur E9" << endl;
+            return true;
     }
     return false;
 }
