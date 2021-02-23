@@ -29,7 +29,9 @@ class Automate {
     //----------------------------------------------------------------- PUBLIC
     public:
         //-------------------------------------------- Constructeurs - destructeur
-        Automate(Lexer *l) : lexer(l){}
+        Automate(Lexer *l) : lexer(l){
+            stateStack.push(new Etat0())
+        }
 
         ~Automate();
 
