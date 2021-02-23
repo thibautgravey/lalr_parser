@@ -54,7 +54,7 @@ class Entier : public Symbole {
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
         virtual bool isTerminal();
-        int getValeur();
+        int eval();
 
     //------------------------------------------------------------------ PRIVE
     protected:
@@ -72,7 +72,7 @@ class Expr : public Symbole {
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
         virtual bool isTerminal();
-        int getValeur();
+        int eval();
 
     //------------------------------------------------------------------ PRIVE
 protected:
