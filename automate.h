@@ -39,7 +39,7 @@ class Automate {
         void lecture();
         void decalage(Symbole *s, Etat *e);
         void reduction(int n, Symbole *s);
-        Symbole popSymbole();
+        Symbole* popSymbole();
         void popAndDestroySymbole();
 
     //------------------------------------------------------------------ PRIVE
