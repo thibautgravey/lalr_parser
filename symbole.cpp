@@ -39,3 +39,8 @@ bool Expr::isTerminal(){
 	return false;
 }
 
+void Expr::Affiche() {
+    Symbole::Affiche();
+    cout<<"("<<valeur<<")";
+}
+
