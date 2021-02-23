@@ -32,10 +32,10 @@ void Entier::Affiche() {
 }
 
 bool Entier::isTerminal(){
-	return false;
+	return true;
 }
 
-int Entier::getValeur() {
+int Entier::eval() {
     return valeur;
 }
 
@@ -48,7 +48,7 @@ void Expr::Affiche() {
     cout<<"("<<valeur<<")";
 }
 
-int Expr::getValeur() {
+int Expr::eval() {
     return valeur;
 }
 
