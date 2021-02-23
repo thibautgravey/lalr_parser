@@ -12,7 +12,47 @@
 //-------------------------------------------------------- Include système
 
 //------------------------------------------------------ Include personnel
+#include "etat.h"
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+bool Etat0::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat1::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat2::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat3::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat4::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat5::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat6::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat7::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat8::transition(Automate &automate, int *s) {
+
+}
+
+bool Etat9::transition(Automate &automate, int *s) {
+
+}
