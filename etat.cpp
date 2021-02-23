@@ -88,6 +88,9 @@ bool Etat2::transition(Automate &automate, Symbole *s) {
 }
 
 bool Etat3::transition(Automate &automate, Symbole *s) {
+	Expr *e1;
+	int valeur;
+
 	switch(*s) {
 		case PLUS:
 		case MULT:
@@ -96,15 +99,13 @@ bool Etat3::transition(Automate &automate, Symbole *s) {
 			automate.reduction(3, s);
 			break;
 		case EXPR:
-			automate.decalage(s,new Etat6);
+		e1 = (Expr*) automate.popSymbole();
+		valeur = *e1;
+			automate.reduction( 1, new Expr(valeur) );
 			break;
 		default:
-			cout << "Erreur E3" << endl;
-            cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN, EXPR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+			cout << "erreur etat3" << endl;
+			break;
 	}
 	return false;
 }
