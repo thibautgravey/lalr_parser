@@ -12,7 +12,14 @@
 //-------------------------------------------------------- Include système
 
 //------------------------------------------------------ Include personnel
-
+#include "automate.h"
 //----------------------------------------------------------------- PUBLIC
 
+void Automate::decalage(Symbole *s, Etat *e){
+	symbolStack.push(s);
+	stateStack.push(e);
+	if (s->isTerminal()) {
+		lexer->Avancer();
+	}
+}
 //----------------------------------------------------- Méthodes publiques
