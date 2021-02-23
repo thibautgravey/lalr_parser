@@ -24,11 +24,10 @@ void Automate::lecture() {
 	Symbole * s;
 	bool end = false;
 	while(!end) {
-		s->Affiche();
 		end = stateStack.top()->transition(*this,s);
 		cout<<endl;
 	}
-	
+	cout << "le résultat final est:" << symbolStack.top() << endl;
 }
 
 void Automate::decalage(Symbole *s, Etat *e){
