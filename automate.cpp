@@ -25,15 +25,25 @@ void Automate::lecture() {
 	bool end = false;
 	while(!end) {
 		s = lexer->Consulter();
-		s->Affiche();
-		cout << endl;
 		end = stateStack.top()->transition(*this,s);
 	}
+
 	if(!this->errorFlag){
-		cout << "Resultat final apres analyse LALR : ";
-		symbolStack.top()->Affiche();
-		cout << endl;
+		cout << "Resultat final apres analyse LALR : " << ((Expr*)symbolStack.top())->eval() << endl;
 	}
+
+	//Libération de mémoire
+	for(int i = 0 ; i <= symbolStack.size(); i++) {
+	    delete(symbolStack.top());
+	    symbolStack.pop();
+	}
+
+    for(int i = 0 ; i <= stateStack.size(); i++) {
+        delete(stateStack.top());
+        stateStack.pop();
+	}
+
+    delete(s);
 }
 
 void Automate::decalage(Symbole *s, Etat *e){
@@ -59,6 +69,7 @@ Symbole* Automate::popSymbole() {
 }
 
 void Automate::popAndDestroySymbole() {
+    delete(symbolStack.top());
     symbolStack.pop();
 }
 
