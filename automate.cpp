@@ -33,12 +33,14 @@ void Automate::lecture() {
 	}
 
 	//Libération de mémoire
-	for(int i = 0 ; i <= symbolStack.size(); i++) {
+	int size = symbolStack.size();
+	for(int i = 0 ; i < size ; i++) {
 	    delete(symbolStack.top());
 	    symbolStack.pop();
 	}
 
-    for(int i = 0 ; i <= stateStack.size(); i++) {
+	size = stateStack.size();
+    for(int i = 0 ; i < size ; i++) {
         delete(stateStack.top());
         stateStack.pop();
 	}
