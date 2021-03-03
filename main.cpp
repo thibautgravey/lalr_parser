@@ -4,7 +4,12 @@
 
 
 int main(void) {
-   string chaine("(1+34)*123");
+   cout << "Quelle expression voulez vous analyser ? grammaire autorisée: + - * ( ) val " <<endl;
+
+   
+
+   string chaine;
+   cin >> chaine;
 
    Lexer l(chaine);
 
