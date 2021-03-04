@@ -4,9 +4,7 @@
 
 
 int main(void) {
-   cout << "Quelle expression voulez vous analyser ? grammaire autorisée: + - * ( ) val " <<endl;
-
-   
+   cout << "Quelle expression voulez vous analyser ? Grammaire autorisée: + - * ( ) val " << endl;
 
    string chaine;
    cin >> chaine;
