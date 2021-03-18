@@ -20,61 +20,78 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void Automate::lecture() {
-	Symbole * s;
+void Automate::lecture()
+{
+	Symbole *s;
 	bool end = false;
-	while(!end) {
+	while (!end)
+	{
 		s = lexer->Consulter();
-		end = stateStack.top()->transition(*this,s);
+		end = stateStack.top()->transition(*this, s);
 	}
 
-	if(!this->errorFlag){
-		cout << "Resultat final apres analyse LALR : " << ((Expr*)symbolStack.top())->eval() << endl;
+	if (!this->errorFlag)
+	{
+		cout << "Resultat final apres analyse LALR : " << ((Expr *)symbolStack.top())->eval() << endl;
 	}
 
 	//Libération de mémoire
 	int size = symbolStack.size();
-	for(int i = 0 ; i < size ; i++) {
-	    delete(symbolStack.top());
-	    symbolStack.pop();
+	for (int i = 0; i < size; i++)
+	{
+		delete (symbolStack.top());
+		symbolStack.pop();
 	}
 
 	size = stateStack.size();
-    for(int i = 0 ; i < size ; i++) {
-        delete(stateStack.top());
-        stateStack.pop();
+	for (int i = 0; i < size; i++)
+	{
+		delete (stateStack.top());
+		stateStack.pop();
 	}
 
-    delete(s);
+	delete (s);
 }
 
-void Automate::decalage(Symbole *s, Etat *e){
+void Automate::decalage(Symbole *s, Etat *e)
+{
 	symbolStack.push(s);
 	stateStack.push(e);
-	if (s->isTerminal()) {
+	if (s->IsTerminal())
+	{
 		lexer->Avancer();
 	}
 }
 
-void Automate::reduction(int n, Symbole *s) {
-    for(int i = 0 ; i<n ; i++){
-        delete(stateStack.top());
-        stateStack.pop();
-    }
-    stateStack.top()->transition(*this,s);
+void Automate::reduction(int n, Symbole *s)
+{
+	for (int i = 0; i < n; i++)
+	{
+		delete (stateStack.top());
+		stateStack.pop();
+	}
+	stateStack.top()->transition(*this, s);
 }
 
-Symbole* Automate::popSymbole() {
-    Symbole* res = symbolStack.top();
-    symbolStack.pop();
-    return res;
+Symbole *Automate::popSymbole()
+{
+	Symbole *res = symbolStack.top();
+	symbolStack.pop();
+	return res;
 }
 
-void Automate::popAndDestroySymbole() {
-    delete(symbolStack.top());
-    symbolStack.pop();
+void Automate::popAndDestroySymbole()
+{
+	delete (symbolStack.top());
+	symbolStack.pop();
 }
 
-void Automate::setError() {
-    errorFlag = true;
+void Automate::setError()
+{
+	errorFlag = true;
+}
+
+Lexer *Automate::getLexer()
+{
+	return this->lexer;
 }

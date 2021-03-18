@@ -13,10 +13,20 @@
 using namespace std;
 
 //------------------------------------------------------------- Constantes
-const string Etiquettes[] = { "OPENPAR", "CLOSEPAR", "PLUS", "MULT", "INT", "FIN", "ERREUR", "EXPR"};
+const string Etiquettes[] = {"OPENPAR", "CLOSEPAR", "PLUS", "MULT", "INT", "FIN", "ERREUR", "EXPR"};
 
 //------------------------------------------------------------------ Types
-enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR, EXPR };
+enum Identificateurs
+{
+    OPENPAR,
+    CLOSEPAR,
+    PLUS,
+    MULT,
+    INT,
+    FIN,
+    ERREUR,
+    EXPR
+};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Symbole>
@@ -25,55 +35,41 @@ enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR, EXPR };
 // par le polymorphisme de cette classe.
 //------------------------------------------------------------------------
 
-class Symbole {
+class Symbole
+{
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Symbole(int i) : ident(i) {  }
-        virtual ~Symbole() { }
+public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Symbole(int i, char s) : ident(i), symbole(s) {}
+    virtual ~Symbole() {}
 
-        //------------------------------------------------- Surcharge d'opérateurs
-        operator int() const { return ident; }
+    //------------------------------------------------- Surcharge d'opérateurs
+    operator int() const { return ident; }
 
-        //----------------------------------------------------- Méthodes publiques
-        virtual void Affiche();
-        virtual bool isTerminal();
+    //----------------------------------------------------- Méthodes publiques
+    virtual void Affiche();
+    virtual char GetSymbole();
+    virtual bool IsTerminal();
 
     //------------------------------------------------------------------ PRIVE
-    protected:
-        //----------------------------------------------------- Attributs protégés
-        int ident;
+protected:
+    //----------------------------------------------------- Attributs protégés
+    int ident;
+    char symbole;
 };
 
-class Entier : public Symbole {
+class Entier : public Symbole
+{
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Entier(int v) : Symbole(INT), valeur(v) { }
-        ~Entier() { }
+public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Entier(int v) : Symbole(INT, v), valeur(v) {}
+    ~Entier() {}
 
-        //----------------------------------------------------- Méthodes publiques
-        virtual void Affiche();
-        virtual bool isTerminal();
-        int eval();
-
-    //------------------------------------------------------------------ PRIVE
-    protected:
-        //----------------------------------------------------- Attributs protégés
-        int valeur;
-};
-
-class Expr : public Symbole {
-    //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Expr(int v) : Symbole(EXPR), valeur(v) { }
-        ~Expr() { }
-
-        //----------------------------------------------------- Méthodes publiques
-        virtual void Affiche();
-        virtual bool isTerminal();
-        int eval();
+    //----------------------------------------------------- Méthodes publiques
+    virtual void Affiche();
+    virtual bool IsTerminal();
+    int eval();
 
     //------------------------------------------------------------------ PRIVE
 protected:
@@ -81,3 +77,21 @@ protected:
     int valeur;
 };
 
+class Expr : public Symbole
+{
+    //----------------------------------------------------------------- PUBLIC
+public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Expr(int v) : Symbole(EXPR, v), valeur(v) {}
+    ~Expr() {}
+
+    //----------------------------------------------------- Méthodes publiques
+    virtual void Affiche();
+    virtual bool IsTerminal();
+    int eval();
+
+    //------------------------------------------------------------------ PRIVE
+protected:
+    //----------------------------------------------------- Attributs protégés
+    int valeur;
+};

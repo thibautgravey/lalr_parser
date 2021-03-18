@@ -22,21 +22,24 @@ using namespace std;
 // Analyseur lexical trivial permettant la lecture de symbole telles que
 // la parenthèse ouvrante, fermante, les signes + et * ainsi que des entiers.
 //------------------------------------------------------------------------
-class Lexer {
+class Lexer
+{
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Lexer(string s) : flux(s), tete(0), tampon(nullptr) {}
-        ~Lexer() {}
+public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Lexer(string s) : flux(s), tete(0), tampon(nullptr) {}
+    ~Lexer() {}
 
-        //----------------------------------------------------- Méthodes publiques
-        Symbole *Consulter();
-        void Avancer();
+    //----------------------------------------------------- Méthodes publiques
+    Symbole *Consulter();
+    void Avancer();
+    string GetFlux();
+    int GetTete();
 
     //------------------------------------------------------------------ PRIVE
-    protected:
-        //----------------------------------------------------- Attributs protégés
-        string flux;
-        int tete;
-        Symbole *tampon;
+protected:
+    //----------------------------------------------------- Attributs protégés
+    string flux;
+    int tete;
+    Symbole *tampon;
 };

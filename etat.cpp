@@ -19,244 +19,293 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-bool Etat0::transition(Automate &automate, Symbole *s) {
-	switch(*s) {
-		case INT:
-			automate.decalage(s, new Etat3);
-			break;
-		case OPENPAR:
-			automate.decalage(s,new Etat2);
-			break;
-		case EXPR:
-			automate.decalage(s,new Etat1);
-			break;
-		default:
-		    automate.setError();
-            cout << "Erreur E0" << endl;
-            cout << "Attendu : INT, OPENPAR, EXPR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+
+void Etat::PrintErreur(string flux, int tete, Symbole *s)
+{
+    cout << flux << endl;
+    for (int i = 0; i < tete; i++)
+    {
+        cout << " ";
     }
-	return false;
+    cout << "^" << endl;
+    if (*s == ERREUR)
+    {
+        cout << "Symbole '" << s->GetSymbole() << "' non reconnu dans cette grammaire." << endl;
+    }
+    else
+    {
+        cout << "Symbole '" << s->GetSymbole() << "' innatendu à cet endroit" << endl;
+    }
 }
 
-bool Etat1::transition(Automate &automate, Symbole *s) {
-    switch(*s) {
-		case PLUS:
-			automate.decalage(s, new Etat4);
-			break;
-		case MULT:
-			automate.decalage(s,new Etat5);
-			break;
-		case FIN:
-			return true;
-		default:
-            automate.setError();
-			cout << "Erreur E1" << endl;
-            cout << "Attendu : PLUS, MULT, FIN, EXPR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
-	}
-	return false;
+bool Etat0::transition(Automate &automate, Symbole *s)
+{
+    switch (*s)
+    {
+    case INT:
+        automate.decalage(s, new Etat3);
+        break;
+    case OPENPAR:
+        automate.decalage(s, new Etat2);
+        break;
+    case EXPR:
+        automate.decalage(s, new Etat1);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E0" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : INT, (" << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
+    }
+    return false;
 }
 
-bool Etat2::transition(Automate &automate, Symbole *s) {
-    switch(*s) {
-		case INT:
-			automate.decalage(s, new Etat3);
-			break;
-		case OPENPAR:
-			automate.decalage(s,new Etat2);
-			break;
-		case EXPR:
-			automate.decalage(s,new Etat6);
-			break;
-		default:
-            automate.setError();
-			cout << "Erreur E2" << endl;
-            cout << "Attendu : INT, OPENPAR, EXPR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
-	}
-	return false;
+bool Etat1::transition(Automate &automate, Symbole *s)
+{
+    switch (*s)
+    {
+    case PLUS:
+        automate.decalage(s, new Etat4);
+        break;
+    case MULT:
+        automate.decalage(s, new Etat5);
+        break;
+    case FIN:
+        return true;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E1" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : +, *, FIN" << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
+    }
+    return false;
 }
 
-bool Etat3::transition(Automate &automate, Symbole *s) {
+bool Etat2::transition(Automate &automate, Symbole *s)
+{
+    switch (*s)
+    {
+    case INT:
+        automate.decalage(s, new Etat3);
+        break;
+    case OPENPAR:
+        automate.decalage(s, new Etat2);
+        break;
+    case EXPR:
+        automate.decalage(s, new Etat6);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E2" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : INT, (" << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
+    }
+    return false;
+}
+
+bool Etat3::transition(Automate &automate, Symbole *s)
+{
     Entier *e1;
-	switch(*s) {
-		case PLUS:
-		case MULT:
-		case CLOSEPAR:
-		case FIN:
-		    e1 = (Entier*) automate.popSymbole();
-			automate.reduction(1, new Expr(e1->eval()));
-			delete(e1);
-			break;
-		default:
-            automate.setError();
-            cout << "Erreur E3" << endl;
-            cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
-	}
-	return false;
-}
-
-bool Etat4::transition(Automate &automate, Symbole *s) {
-    switch(*s) {
-		case INT:
-			automate.decalage(s,new Etat3);
-			break;
-		case OPENPAR:
-			automate.decalage(s,new Etat2);
-			break;
-		case EXPR:
-			automate.decalage(s,new Etat7);
-			break;
-		default:
-            automate.setError();
-			cout << "Erreur E4" << endl;
-            cout << "Attendu : INT, OPENPAR, EXPR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
-	}
-
-	return false;
-}
-
-bool Etat5::transition(Automate &automate, Symbole *s) {
-    switch (*s) {
-        case INT:
-            automate.decalage(s, new Etat3);
-            break;
-        case OPENPAR:
-            automate.decalage(s, new Etat2);
-            break;
-        case EXPR:
-            automate.decalage(s, new Etat8);
-            break;
-        default:
-            automate.setError();
-            cout << "Erreur E5" << endl;
-            cout << "Attendu : INT, OPENPAR, EXPR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+    switch (*s)
+    {
+    case PLUS:
+    case MULT:
+    case CLOSEPAR:
+    case FIN:
+        e1 = (Entier *)automate.popSymbole();
+        automate.reduction(1, new Expr(e1->eval()));
+        delete (e1);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E3" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : +, *, ), FIN" << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
     }
     return false;
 }
 
-bool Etat6::transition(Automate &automate, Symbole *s) {
-    switch (*s) {
-        case PLUS:
-            automate.decalage(s, new Etat4);
-            break;
-        case MULT:
-            automate.decalage(s, new Etat5);
-            break;
-        case CLOSEPAR:
-            automate.decalage(s, new Etat9);
-            break;
-        default:
-            automate.setError();
-            cout << "Erreur E6" << endl;
-            cout << "Attendu : PLUS, MULT, CLOSEPAR" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+bool Etat4::transition(Automate &automate, Symbole *s)
+{
+    switch (*s)
+    {
+    case INT:
+        automate.decalage(s, new Etat3);
+        break;
+    case OPENPAR:
+        automate.decalage(s, new Etat2);
+        break;
+    case EXPR:
+        automate.decalage(s, new Etat7);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E4" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : INT, ( " << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
+    }
+
+    return false;
+}
+
+bool Etat5::transition(Automate &automate, Symbole *s)
+{
+    switch (*s)
+    {
+    case INT:
+        automate.decalage(s, new Etat3);
+        break;
+    case OPENPAR:
+        automate.decalage(s, new Etat2);
+        break;
+    case EXPR:
+        automate.decalage(s, new Etat8);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E5" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : INT, OPENPAR" << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
     }
     return false;
 }
 
-bool Etat7::transition(Automate &automate, Symbole *s) {
+bool Etat6::transition(Automate &automate, Symbole *s)
+{
+    switch (*s)
+    {
+    case PLUS:
+        automate.decalage(s, new Etat4);
+        break;
+    case MULT:
+        automate.decalage(s, new Etat5);
+        break;
+    case CLOSEPAR:
+        automate.decalage(s, new Etat9);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E6" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : +, *, ) " << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
+    }
+    return false;
+}
+
+bool Etat7::transition(Automate &automate, Symbole *s)
+{
     Expr *e1;
     Expr *e2;
-    switch (*s) {
-        case MULT:
-            automate.decalage(s, new Etat5);
-            break;
-        case PLUS:
-        case CLOSEPAR:
-        case FIN:
-            e1 = (Expr*) automate.popSymbole();
-            automate.popAndDestroySymbole();
-            e2 = (Expr*) automate.popSymbole();
-            automate.reduction(3, new Expr(e1->eval()+e2->eval()));
-            delete(e1);
-            delete(e2);
-            break;
-        default:
-            automate.setError();
-            cout << "Erreur E7" << endl;
-            cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+    switch (*s)
+    {
+    case MULT:
+        automate.decalage(s, new Etat5);
+        break;
+    case PLUS:
+    case CLOSEPAR:
+    case FIN:
+        e1 = (Expr *)automate.popSymbole();
+        automate.popAndDestroySymbole();
+        e2 = (Expr *)automate.popSymbole();
+        automate.reduction(3, new Expr(e1->eval() + e2->eval()));
+        delete (e1);
+        delete (e2);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E7" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : *, +, ), FIN" << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
     }
     return false;
 }
 
-bool Etat8::transition(Automate &automate, Symbole *s) {
+bool Etat8::transition(Automate &automate, Symbole *s)
+{
     Expr *e1;
     Expr *e2;
-    switch (*s) {
-        case PLUS:
-        case MULT:
-        case CLOSEPAR:
-        case FIN:
-            e1 = (Expr*) automate.popSymbole();
-            automate.popAndDestroySymbole();
-            e2 = (Expr*) automate.popSymbole();
-            automate.reduction(3, new Expr(e1->eval()*e2->eval()));
-            delete(e1);
-            delete(e2);
-            break;
-        default:
-            automate.setError();
-            cout << "Erreur E8" << endl;
-            cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+    switch (*s)
+    {
+    case PLUS:
+    case MULT:
+    case CLOSEPAR:
+    case FIN:
+        e1 = (Expr *)automate.popSymbole();
+        automate.popAndDestroySymbole();
+        e2 = (Expr *)automate.popSymbole();
+        automate.reduction(3, new Expr(e1->eval() * e2->eval()));
+        delete (e1);
+        delete (e2);
+        break;
+    default:
+        automate.setError();
+        cout << endl
+             << "Erreur E8" << endl;
+        this->PrintErreur(automate.getLexer()->GetFlux(), automate.getLexer()->GetTete(), s);
+        cout << "Attendu : +, *, ), FIN " << endl;
+        cout << "Obtenu : " << s->GetSymbole() << endl
+             << endl;
+        return true;
     }
     return false;
 }
 
-bool Etat9::transition(Automate &automate, Symbole *s) {
+bool Etat9::transition(Automate &automate, Symbole *s)
+{
     Expr *e1;
-    switch (*s) {
-        case PLUS:
-        case MULT:
-        case CLOSEPAR:
-        case FIN:
-            automate.popAndDestroySymbole();
-            e1 = (Expr*) automate.popSymbole();
-            automate.popAndDestroySymbole();
-            automate.reduction(3, new Expr(e1->eval()));
-            delete(e1);
-            break;
-        default:
-            automate.setError();
-            cout << "Erreur E9" << endl;
-            cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
-            cout << "Obtenu : ";
-            s->Affiche();
-            cout << endl;
-            return true;
+    switch (*s)
+    {
+    case PLUS:
+    case MULT:
+    case CLOSEPAR:
+    case FIN:
+        automate.popAndDestroySymbole();
+        e1 = (Expr *)automate.popSymbole();
+        automate.popAndDestroySymbole();
+        automate.reduction(3, new Expr(e1->eval()));
+        delete (e1);
+        break;
+    default:
+        automate.setError();
+        cout << "Erreur E9" << endl;
+        cout << automate.getLexer()->GetFlux() << endl;
+        cout << automate.getLexer()->GetTete() << endl;
+        cout << "Attendu : PLUS, MULT, CLOSEPAR, FIN" << endl;
+        cout << "Obtenu : " << s->GetSymbole();
+        s->Affiche();
+        return true;
     }
     return false;
 }

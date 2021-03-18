@@ -18,37 +18,49 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void Symbole::Affiche() {
-   cout<<Etiquettes[ident];
+void Symbole::Affiche()
+{
+    cout << Etiquettes[ident];
 }
 
-bool Symbole::isTerminal(){
-	return true;
+bool Symbole::IsTerminal()
+{
+    return true;
 }
 
-void Entier::Affiche() {
-   Symbole::Affiche();
-   cout<<"("<<valeur<<")";
+char Symbole::GetSymbole()
+{
+    return this->symbole;
 }
 
-bool Entier::isTerminal(){
-	return true;
-}
-
-int Entier::eval() {
-    return valeur;
-}
-
-bool Expr::isTerminal(){
-	return false;
-}
-
-void Expr::Affiche() {
+void Entier::Affiche()
+{
     Symbole::Affiche();
-    cout<<"("<<valeur<<")";
+    cout << "(" << valeur << ")";
 }
 
-int Expr::eval() {
+bool Entier::IsTerminal()
+{
+    return true;
+}
+
+int Entier::eval()
+{
     return valeur;
 }
 
+bool Expr::IsTerminal()
+{
+    return false;
+}
+
+void Expr::Affiche()
+{
+    Symbole::Affiche();
+    cout << "(" << valeur << ")";
+}
+
+int Expr::eval()
+{
+    return valeur;
+}
