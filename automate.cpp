@@ -29,7 +29,9 @@ void Automate::lecture() {
 	}
 
 	if(!this->errorFlag){
-		cout << "Resultat final apres analyse LALR : " << ((Expr*)symbolStack.top())->eval() << endl;
+		cout << "Structure de l'arbre obtenue : ";
+		symbolStack.top()->Affiche();
+		cout << endl << "Resultat final apres analyse LALR : " << ((Expr*)symbolStack.top())->eval() << endl;
 	}
 
 	//Libération de mémoire

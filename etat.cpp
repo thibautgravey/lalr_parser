@@ -89,14 +89,16 @@ bool Etat2::transition(Automate &automate, Symbole *s) {
 
 bool Etat3::transition(Automate &automate, Symbole *s) {
     Entier *e1;
+    ExprVal *exprVal;
 	switch(*s) {
 		case PLUS:
 		case MULT:
 		case CLOSEPAR:
 		case FIN:
 		    e1 = (Entier*) automate.popSymbole();
-			automate.reduction(1, new Expr(e1->eval()));
-			delete(e1);
+		    exprVal = new ExprVal(e1);
+			automate.reduction(1, exprVal);
+			//delete(exprVal);
 			break;
 		default:
             automate.setError();
@@ -183,6 +185,7 @@ bool Etat6::transition(Automate &automate, Symbole *s) {
 bool Etat7::transition(Automate &automate, Symbole *s) {
     Expr *e1;
     Expr *e2;
+    ExprPlus *exprPlus;
     switch (*s) {
         case MULT:
             automate.decalage(s, new Etat5);
@@ -193,9 +196,9 @@ bool Etat7::transition(Automate &automate, Symbole *s) {
             e1 = (Expr*) automate.popSymbole();
             automate.popAndDestroySymbole();
             e2 = (Expr*) automate.popSymbole();
-            automate.reduction(3, new Expr(e1->eval()+e2->eval()));
-            delete(e1);
-            delete(e2);
+            exprPlus = new ExprPlus(e2,e1);
+            automate.reduction(3, exprPlus);
+            //delete(exprPlus);
             break;
         default:
             automate.setError();
@@ -212,6 +215,7 @@ bool Etat7::transition(Automate &automate, Symbole *s) {
 bool Etat8::transition(Automate &automate, Symbole *s) {
     Expr *e1;
     Expr *e2;
+    ExprMult *exprMult;
     switch (*s) {
         case PLUS:
         case MULT:
@@ -220,9 +224,9 @@ bool Etat8::transition(Automate &automate, Symbole *s) {
             e1 = (Expr*) automate.popSymbole();
             automate.popAndDestroySymbole();
             e2 = (Expr*) automate.popSymbole();
-            automate.reduction(3, new Expr(e1->eval()*e2->eval()));
-            delete(e1);
-            delete(e2);
+            exprMult = new ExprMult(e2,e1);
+            automate.reduction(3, exprMult);
+            //delete(exprMult);
             break;
         default:
             automate.setError();
@@ -238,6 +242,7 @@ bool Etat8::transition(Automate &automate, Symbole *s) {
 
 bool Etat9::transition(Automate &automate, Symbole *s) {
     Expr *e1;
+    ExprPar *exprPar;
     switch (*s) {
         case PLUS:
         case MULT:
@@ -246,8 +251,9 @@ bool Etat9::transition(Automate &automate, Symbole *s) {
             automate.popAndDestroySymbole();
             e1 = (Expr*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            automate.reduction(3, new Expr(e1->eval()));
-            delete(e1);
+            exprPar = new ExprPar(e1);
+            automate.reduction(3, exprPar);
+            //delete(exprPar);
             break;
         default:
             automate.setError();
