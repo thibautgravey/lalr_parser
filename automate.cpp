@@ -80,3 +80,7 @@ void Automate::popAndDestroySymbole() {
 void Automate::setError() {
     errorFlag = true;
 }
+
+Lexer *Automate::getLexer() {
+    return this->lexer;
+}

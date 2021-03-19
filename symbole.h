@@ -29,8 +29,8 @@ class Symbole {
     //----------------------------------------------------------------- PUBLIC
     public:
         //-------------------------------------------- Constructeurs - destructeur
-        Symbole(int i, bool term) : ident(i), terminal(term) {  }
-        Symbole(int i) : ident(i), terminal(true) {  }
+        Symbole(int i, bool term, char s) : ident(i), terminal(term), symbole(s) {  }
+        Symbole(int i, char s) : ident(i), terminal(true), symbole(s) {  }
         virtual ~Symbole() = default;
 
         //------------------------------------------------- Surcharge d'opérateurs
@@ -39,19 +39,21 @@ class Symbole {
         //----------------------------------------------------- Méthodes publiques
         virtual void Affiche();
         bool isTerminal() const;
+        char GetSymbole() const;
 
     //------------------------------------------------------------------ PRIVE
     protected:
         //----------------------------------------------------- Attributs protégés
         int ident;
         bool terminal;
+        char symbole;
 };
 
 class Entier : public Symbole {
     //----------------------------------------------------------------- PUBLIC
     public:
         //-------------------------------------------- Constructeurs - destructeur
-        Entier(int v) : Symbole(INT, true), valeur(v) { }
+        Entier(int v) : Symbole(INT, true, v), valeur(v) { }
         ~Entier() override { }
 
         //----------------------------------------------------- Méthodes publiques
@@ -68,7 +70,7 @@ class Expr : public Symbole {
     //----------------------------------------------------------------- PUBLIC
     public:
         //-------------------------------------------- Constructeurs - destructeur
-        Expr() : Symbole(EXPR, false) { }
+        Expr(char s) : Symbole(EXPR, false,s) { }
         ~Expr() override = default;
 
         //----------------------------------------------------- Méthodes publiques
@@ -85,7 +87,7 @@ class ExprPlus : public Expr {
 //----------------------------------------------------------------- PUBLIC
   public:
     //-------------------------------------------- Constructeurs - destructeur
-    ExprPlus(Expr * e1, Expr * e2) : Expr(), expr1(e1), expr2(e2) { }
+    ExprPlus(Expr * e1, Expr * e2) : Expr('+'), expr1(e1), expr2(e2) { }
     ~ExprPlus() override;
 
     //----------------------------------------------------- Méthodes publiques
@@ -103,7 +105,7 @@ class ExprMult : public Expr {
 //----------------------------------------------------------------- PUBLIC
   public:
     //-------------------------------------------- Constructeurs - destructeur
-    ExprMult(Expr * e1, Expr * e2) : Expr(), expr1(e1), expr2(e2) { }
+    ExprMult(Expr * e1, Expr * e2) : Expr('*'), expr1(e1), expr2(e2) { }
     ~ExprMult() override;
 
     //----------------------------------------------------- Méthodes publiques
@@ -121,7 +123,7 @@ class ExprPar : public Expr {
 //----------------------------------------------------------------- PUBLIC
   public:
     //-------------------------------------------- Constructeurs - destructeur
-    ExprPar(Expr * e) : Expr(), expr(e) { }
+    ExprPar(Expr * e) : Expr('('), expr(e) { }
     ~ExprPar() override;
 
     //----------------------------------------------------- Méthodes publiques
@@ -138,7 +140,7 @@ class ExprVal : public Expr {
 //----------------------------------------------------------------- PUBLIC
   public:
     //-------------------------------------------- Constructeurs - destructeur
-    ExprVal(Entier * e) : Expr(), entier(e) { }
+    ExprVal(Entier * e) : Expr(e->eval()), entier(e) { }
     ~ExprVal() override;
 
     //----------------------------------------------------- Méthodes publiques

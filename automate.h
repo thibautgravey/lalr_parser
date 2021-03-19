@@ -48,6 +48,7 @@ class Automate {
         Symbole* popSymbole();
         void popAndDestroySymbole();
         void setError();
+        Lexer *getLexer();
 
     //------------------------------------------------------------------ PRIVE
     protected:

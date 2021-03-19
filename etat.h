@@ -33,6 +33,7 @@ class Etat {
 
         //----------------------------------------------------- Méthodes publiques
         virtual bool transition(Automate &automate, Symbole *s) = 0;
+        void PrintErreur(const string& flux, int tete, Symbole *s);
 };
 
 //---------- Interface de la classe <Etat0> (fichier etat.h) ------

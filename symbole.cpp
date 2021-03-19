@@ -28,6 +28,10 @@ bool Symbole::isTerminal() const {
     return terminal;
 }
 
+char Symbole::GetSymbole() const {
+    return symbole;
+}
+
 //----------------------------------------------------- Réalisation de <Entier>
 void Entier::Affiche() {
    Symbole::Affiche();

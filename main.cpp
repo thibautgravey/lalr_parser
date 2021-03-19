@@ -4,17 +4,22 @@
 
 
 int main(void) {
-   cout << "Quelle expression voulez vous analyser ? Grammaire autorisée: + - * ( ) val " << endl;
+    cout << "LALR Parser - Par BRANCHEREAU Corentin & GRAVEY Thibaut " << endl;
+    cout << "Grammaire autorisée: + * ( ) INT " << endl;
 
-   string chaine;
-   cin >> chaine;
+    string chaine("");
+    while (chaine != "exit") {
+        cout << ">>> ";
+        cin >> chaine;
 
-   Lexer l(chaine);
+        if (chaine == "quit" || chaine == "q" || chaine == "exit()") {
+            cout << "Utilisez 'exit' pour quitter" << endl;
+        } else if (chaine != "exit") {
+            Lexer l(chaine);
+            Automate a(&l);
+            a.lecture();
+        }
+    }
 
-   Automate a(&l);
-
-   a.lecture();
-
-   return 0;
+    return 0;
 }
-

@@ -32,6 +32,8 @@ class Lexer {
         //----------------------------------------------------- Méthodes publiques
         Symbole *Consulter();
         void Avancer();
+        string GetFlux();
+        int GetTete();
 
     //------------------------------------------------------------------ PRIVE
     protected:
