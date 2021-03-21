@@ -5,6 +5,7 @@
 
 int main(void) {
     cout << "LALR Parser - Par BRANCHEREAU Corentin & GRAVEY Thibaut " << endl;
+    cout << "Pour quitter le parser, saisir 'exit' " << endl;
     cout << "Grammaire autorisée: + * ( ) INT " << endl;
 
     string chaine("");
