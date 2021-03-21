@@ -24,21 +24,25 @@ using namespace std;
 //------------------------------------------------------------------------
 class Lexer {
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Lexer(string s) : flux(s), tete(0), tampon(nullptr) {}
-        ~Lexer() {}
+  public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Lexer(string s) : flux(s), tete(0), tampon(nullptr) {}
 
-        //----------------------------------------------------- Méthodes publiques
-        Symbole *Consulter();
-        void Avancer();
-        string GetFlux();
-        int GetTete();
+    ~Lexer() {}
+
+    //----------------------------------------------------- Méthodes publiques
+    Symbole * Consulter();
+
+    void Avancer();
+
+    string GetFlux();
+
+    int GetTete();
 
     //------------------------------------------------------------------ PRIVE
-    protected:
-        //----------------------------------------------------- Attributs protégés
-        string flux;
-        int tete;
-        Symbole *tampon;
+  protected:
+    //----------------------------------------------------- Attributs protégés
+    string flux;
+    int tete;
+    Symbole * tampon;
 };

@@ -21,31 +21,31 @@
 
 //----------------------------------------------------- Réalisation de <Symbole>
 void Symbole::Affiche() {
-   cout<<Etiquettes[ident];
-}
+    cout << Etiquettes[ident];
+} //Fin de Symbole::Affiche
 
-bool Symbole::isTerminal() const {
+bool Symbole::IsTerminal() const {
     return terminal;
-}
+} //Fin de Symbole::IsTerminal
 
 char Symbole::GetSymbole() const {
     return symbole;
-}
+} //Fin de Symbole::GetSymbole
 
 //----------------------------------------------------- Réalisation de <Entier>
 void Entier::Affiche() {
-   Symbole::Affiche();
-   cout<<"("<<valeur<<")";
-}
+    Symbole::Affiche();
+    cout << "(" << valeur << ")";
+} //Fin de Entier::Affiche
 
-int Entier::eval() {
+int Entier::Eval() {
     return valeur;
-}
+} //Fin de Entier::Eval
 
 //----------------------------------------------------- Réalisation de <Expr>
 void Expr::Affiche() {
     Symbole::Affiche();
-}
+} //Fin de Expr::Affiche
 
 //----------------------------------------------------- Réalisation de <ExprPlus>
 void ExprPlus::Affiche() {
@@ -54,16 +54,16 @@ void ExprPlus::Affiche() {
     cout << "+";
     expr2->Affiche();
     cout << ")";
-}
+} //Fin de ExprPlus::Affiche
 
-int ExprPlus::eval() {
-    return expr1->eval() + expr2->eval();
-}
+int ExprPlus::Eval() {
+    return expr1->Eval() + expr2->Eval();
+} //Fin de ExprPlus::Eval
 
 ExprPlus::~ExprPlus() {
-    delete(expr1);
-    delete(expr2);
-}
+    delete (expr1);
+    delete (expr2);
+} //Fin de ~ExprPlus
 
 //----------------------------------------------------- Réalisation de <ExprMult>
 void ExprMult::Affiche() {
@@ -72,41 +72,41 @@ void ExprMult::Affiche() {
     cout << "*";
     expr2->Affiche();
     cout << ")";
-}
+} //Fin de ExprMult::Affiche
 
-int ExprMult::eval() {
-    return expr1->eval() * expr2->eval();
-}
+int ExprMult::Eval() {
+    return expr1->Eval() * expr2->Eval();
+} //Fin de ExprMult::Eval
 
 ExprMult::~ExprMult() {
-    delete(expr1);
-    delete(expr2);
-}
+    delete (expr1);
+    delete (expr2);
+} //Fin de ~ExprMult
 
 //----------------------------------------------------- Réalisation de <ExprPar>
 void ExprPar::Affiche() {
     cout << "EXPR_PAR(";
     expr->Affiche();
     cout << ")";
-}
+} //Fin de ExprPar::Affiche
 
-int ExprPar::eval() {
-    return expr->eval();
-}
+int ExprPar::Eval() {
+    return expr->Eval();
+} //Fin de ExprPar::Eval
 
 ExprPar::~ExprPar() {
-    delete(expr);
-}
+    delete (expr);
+} //Fin de ~ExprPar
 
 //----------------------------------------------------- Réalisation de <ExprVal>
 void ExprVal::Affiche() {
     entier->Affiche();
-}
+} //Fin de ExprVal::Affiche
 
-int ExprVal::eval() {
-    return entier->eval();
-}
+int ExprVal::Eval() {
+    return entier->Eval();
+} //Fin de ExprVal::Eval
 
 ExprVal::~ExprVal() {
-    delete(entier);
-}
+    delete (entier);
+} //Fin de ~ExprVal

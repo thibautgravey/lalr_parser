@@ -33,30 +33,36 @@
 
 class Automate {
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Automate(Lexer *l) : lexer(l), errorFlag(false){
-            stateStack.push(new Etat0);
-        }
+  public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Automate(Lexer * l) : lexer(l), errorFlag(false) {
+        stateStack.push(new Etat0);
+    }
 
-        ~Automate() {}
+    ~Automate() {}
 
-        //----------------------------------------------------- Méthodes publiques
-        void lecture();
-        void decalage(Symbole *s, Etat *e);
-        void reduction(int n, Symbole *s);
-        Symbole* popSymbole();
-        void popAndDestroySymbole();
-        void setError();
-        Lexer *getLexer();
+    //----------------------------------------------------- Méthodes publiques
+    void Lecture();
+
+    void Decalage(Symbole * s, Etat * e);
+
+    void Reduction(int n, Symbole * s);
+
+    Symbole * PopSymbole();
+
+    void PopAndDestroySymbole();
+
+    void SetError();
+
+    Lexer * GetLexer();
 
     //------------------------------------------------------------------ PRIVE
-    protected:
-        //----------------------------------------------------- Attributs protégés
-        stack<Etat *> stateStack;
-        stack<Symbole *> symbolStack;
-        bool errorFlag;
-        Lexer *lexer;
+  protected:
+    //----------------------------------------------------- Attributs protégés
+    stack<Etat *> stateStack;
+    stack<Symbole *> symbolStack;
+    bool errorFlag;
+    Lexer * lexer;
 };
 
 #endif //LALR_PARSER_AUTOMATE_H

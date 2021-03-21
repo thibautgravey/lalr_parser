@@ -17,7 +17,7 @@ int main(void) {
         } else if (chaine != "exit") {
             Lexer l(chaine);
             Automate a(&l);
-            a.lecture();
+            a.Lecture();
         }
     }
 

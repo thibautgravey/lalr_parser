@@ -26,134 +26,146 @@ class Automate;
 
 class Etat {
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Etat() { }
-        virtual ~Etat() { }
+  public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Etat() {}
 
-        //----------------------------------------------------- Méthodes publiques
-        virtual bool transition(Automate &automate, Symbole *s) = 0;
-        void PrintErreur(const string& flux, int tete, Symbole *s);
+    virtual ~Etat() {}
+
+    //----------------------------------------------------- Méthodes publiques
+    virtual bool Transition(Automate & automate, Symbole * s) = 0;
+
+    void PrintErreur(const string & flux, int tete, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat0> (fichier etat.h) ------
 class Etat0 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-    public:
-        //-------------------------------------------- Constructeurs - destructeur
-        Etat0() { }
-        virtual ~Etat0() { }
+  public:
+    //-------------------------------------------- Constructeurs - destructeur
+    Etat0() {}
 
-        //----------------------------------------------------- Méthodes publiques
-        virtual bool transition(Automate &automate, Symbole *s);
+    virtual ~Etat0() {}
+
+    //----------------------------------------------------- Méthodes publiques
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat1> (fichier etat.h) ------
 class Etat1 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat1() { }
-    virtual ~Etat1() { }
+    Etat1() {}
+
+    virtual ~Etat1() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat2> (fichier etat.h) ------
 class Etat2 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat2() { }
-    virtual ~Etat2() { }
+    Etat2() {}
+
+    virtual ~Etat2() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat3> (fichier etat.h) ------
 class Etat3 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat3() { }
-    virtual ~Etat3() { }
+    Etat3() {}
+
+    virtual ~Etat3() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat4> (fichier etat.h) ------
 class Etat4 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat4() { }
-    virtual ~Etat4() { }
+    Etat4() {}
+
+    virtual ~Etat4() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat5> (fichier etat.h) ------
 class Etat5 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat5() { }
-    virtual ~Etat5() { }
+    Etat5() {}
+
+    virtual ~Etat5() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat6> (fichier etat.h) ------
 class Etat6 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat6() { }
-    virtual ~Etat6() { }
+    Etat6() {}
+
+    virtual ~Etat6() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat7> (fichier etat.h) ------
 class Etat7 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat7() { }
-    virtual ~Etat7() { }
+    Etat7() {}
+
+    virtual ~Etat7() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat8> (fichier etat.h) ------
 class Etat8 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat8() { }
-    virtual ~Etat8() { }
+    Etat8() {}
+
+    virtual ~Etat8() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 //---------- Interface de la classe <Etat9> (fichier etat.h) ------
 class Etat9 : public Etat {
     //----------------------------------------------------------------- PUBLIC
-public:
+  public:
     //-------------------------------------------- Constructeurs - destructeur
-    Etat9() { }
-    virtual ~Etat9() { }
+    Etat9() {}
+
+    virtual ~Etat9() {}
 
     //----------------------------------------------------- Méthodes publiques
-    virtual bool transition(Automate &automate, Symbole *s);
+    virtual bool Transition(Automate & automate, Symbole * s);
 };
 
 #endif //LALR_PARSER_AUTOMATE_H

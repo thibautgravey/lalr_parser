@@ -20,67 +20,67 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void Automate::lecture() {
-	Symbole * s;
-	bool end = false;
-	while(!end) {
-		s = lexer->Consulter();
-		end = stateStack.top()->transition(*this,s);
-	}
+void Automate::Lecture() {
+    Symbole * s;
+    bool end = false;
+    while (!end) {
+        s = lexer->Consulter();
+        end = stateStack.top()->Transition(*this, s);
+    }
 
-	if(!this->errorFlag){
-		cout << "Structure de l'arbre obtenue : ";
-		symbolStack.top()->Affiche();
-		cout << endl << "Resultat final apres analyse LALR : " << ((Expr*)symbolStack.top())->eval() << endl;
-	}
+    if (!this->errorFlag) {
+        cout << "Structure de l'arbre obtenue : ";
+        symbolStack.top()->Affiche();
+        cout << endl << "Resultat final apres analyse LALR : " << ((Expr *) symbolStack.top())->Eval() << endl;
+    }
 
-	//Libération de mémoire
-	int size = symbolStack.size();
-	for(int i = 0 ; i < size ; i++) {
-	    delete(symbolStack.top());
-	    symbolStack.pop();
-	}
+    //Libération de mémoire
+    int size = symbolStack.size();
+    for (int i = 0; i < size; i++) {
+        delete (symbolStack.top());
+        symbolStack.pop();
+    }
 
-	size = stateStack.size();
-    for(int i = 0 ; i < size ; i++) {
-        delete(stateStack.top());
-        stateStack.pop();
-	}
-
-    delete(s);
-}
-
-void Automate::decalage(Symbole *s, Etat *e){
-	symbolStack.push(s);
-	stateStack.push(e);
-	if (s->isTerminal()) {
-		lexer->Avancer();
-	}
-}
-
-void Automate::reduction(int n, Symbole *s) {
-    for(int i = 0 ; i<n ; i++){
-        delete(stateStack.top());
+    size = stateStack.size();
+    for (int i = 0; i < size; i++) {
+        delete (stateStack.top());
         stateStack.pop();
     }
-    stateStack.top()->transition(*this,s);
-}
 
-Symbole* Automate::popSymbole() {
-    Symbole* res = symbolStack.top();
+    delete (s);
+} //Fin de Lecture
+
+void Automate::Decalage(Symbole * s, Etat * e) {
+    symbolStack.push(s);
+    stateStack.push(e);
+    if (s->IsTerminal()) {
+        lexer->Avancer();
+    }
+} //Fin de Decalage
+
+void Automate::Reduction(int n, Symbole * s) {
+    for (int i = 0; i < n; i++) {
+        delete (stateStack.top());
+        stateStack.pop();
+    }
+    stateStack.top()->Transition(*this, s);
+} //Fin de Reduction
+
+Symbole * Automate::PopSymbole() {
+    Symbole * res = symbolStack.top();
     symbolStack.pop();
     return res;
-}
+} //Fin de PopSymbole
 
-void Automate::popAndDestroySymbole() {
-    delete(symbolStack.top());
+void Automate::PopAndDestroySymbole() {
+    delete (symbolStack.top());
     symbolStack.pop();
-}
+} //Fin de PopAndDestroySymbole
 
-void Automate::setError() {
+void Automate::SetError() {
     errorFlag = true;
-}
+} //Fin de SetError
 
-Lexer *Automate::getLexer() {
+Lexer * Automate::GetLexer() {
     return this->lexer;
-}
+} //Fin de GetLexer
