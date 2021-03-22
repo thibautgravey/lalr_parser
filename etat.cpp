@@ -32,14 +32,14 @@ bool Etat::PrintErreur(Symbole * s, Automate & automate, const string numero, co
     if (*s == ERREUR) {
         cout << "    Symbole '" << s->GetSymbole() << "' non reconnu dans cette grammaire." << endl;
     } else {
-        cout << "    Symbole '" << s->GetSymbole() << "' innatendu à cet endroit" << endl;
+        cout << "    Symbole '" << s->GetSymbole() << "' inattendu à cet endroit" << endl;
     }
 
     cout << "    Attendu: " << grammaire << endl;
     cout << "    Obtenu : " << s->GetSymbole() << endl;
 
     if (*s != FIN && *s != INT) {
-        cout << "    caractère ignoré, poursuite de l'analyse" << endl
+        cout << "    Caractère ignoré, poursuite de l'analyse" << endl
              << endl;
         automate.GetLexer()->Avancer();
         return false;
@@ -110,7 +110,6 @@ bool Etat3::Transition(Automate & automate, Symbole * s) {
             e1 = (Entier *)automate.PopSymbole();
             exprVal = new ExprVal(e1);
             automate.Reduction(1, exprVal);
-            //delete(exprVal);
             break;
         default:
             return this->PrintErreur(s, automate, "E3", "+, *, ), FIN ");
@@ -186,7 +185,6 @@ bool Etat7::Transition(Automate & automate, Symbole * s) {
             e2 = (Expr *)automate.PopSymbole();
             exprPlus = new ExprPlus(e2, e1);
             automate.Reduction(3, exprPlus);
-            //delete(exprPlus);
             break;
         default:
             return this->PrintErreur(s, automate, "E7", "+, *, ), FIN ");
@@ -208,7 +206,6 @@ bool Etat8::Transition(Automate & automate, Symbole * s) {
             e2 = (Expr *)automate.PopSymbole();
             exprMult = new ExprMult(e2, e1);
             automate.Reduction(3, exprMult);
-            //delete(exprMult);
             break;
         default:
             return this->PrintErreur(s, automate, "E8", "+, *, ), FIN ");
@@ -229,7 +226,6 @@ bool Etat9::Transition(Automate & automate, Symbole * s) {
             automate.PopAndDestroySymbole();
             exprPar = new ExprPar(e1);
             automate.Reduction(3, exprPar);
-            //delete(exprPar);
             break;
         default:
             return this->PrintErreur(s, automate, "E9", "+, *, ), FIN ");
