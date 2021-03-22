@@ -10,9 +10,9 @@
 #define LALR_PARSER_AUTOMATE_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include "etat.h"
 #include "lexer.h"
 #include "symbole.h"
-#include "etat.h"
 #include <stack>
 
 //------------------------------------------------------------- Constantes
@@ -35,8 +35,13 @@ class Automate {
     //----------------------------------------------------------------- PUBLIC
   public:
     //-------------------------------------------- Constructeurs - destructeur
-    Automate(Lexer * l) : lexer(l), errorFlag(false) {
+    Automate(Lexer * l)
+        : lexer(l), errorFlag(false) {
         stateStack.push(new Etat0);
+        Symbole * tmp = new Symbole(0, 's');
+        symbolStack.push(tmp);
+        symbolStack.pop();
+        delete tmp;
     }
 
     ~Automate() {}

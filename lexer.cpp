@@ -53,6 +53,7 @@ Symbole * Lexer::Consulter() {
                         tampon = new Entier(resultat);
                     } else {
                         tampon = new Symbole(ERREUR, flux[tete]);
+                        tete++;
                     }
             }
         }
@@ -71,4 +72,3 @@ string Lexer::GetFlux() {
 int Lexer::GetTete() {
     return this->tete;
 } //Fin de GetTete
-

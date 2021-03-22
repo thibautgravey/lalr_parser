@@ -1,7 +1,6 @@
-#include <iostream>
-#include "lexer.h"
 #include "automate.h"
-
+#include "lexer.h"
+#include <iostream>
 
 int main(void) {
     cout << "LALR Parser - Par BRANCHEREAU Corentin & GRAVEY Thibaut " << endl;
@@ -10,7 +9,8 @@ int main(void) {
 
     string chaine("");
     while (chaine != "exit") {
-        cout << ">>> ";
+        cout << endl
+             << ">>> ";
         cin >> chaine;
 
         if (chaine == "quit" || chaine == "q" || chaine == "exit()") {

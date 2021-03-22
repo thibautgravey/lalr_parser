@@ -27,11 +27,11 @@ void Automate::Lecture() {
         s = lexer->Consulter();
         end = stateStack.top()->Transition(*this, s);
     }
-
-    if (!this->errorFlag) {
+    if (!errorFlag) {
         cout << "Structure de l'arbre obtenue : ";
         symbolStack.top()->Affiche();
-        cout << endl << "Resultat final apres analyse LALR : " << ((Expr *) symbolStack.top())->Eval() << endl;
+        cout << endl
+             << "Resultat final apres analyse LALR : " << ((Expr *)symbolStack.top())->Eval() << endl;
     }
 
     //Libération de mémoire
