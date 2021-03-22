@@ -35,7 +35,7 @@ class Etat {
     //----------------------------------------------------- Méthodes publiques
     virtual bool Transition(Automate & automate, Symbole * s) = 0;
 
-    void PrintErreur(const string & flux, int tete, Symbole * s);
+    bool PrintErreur(Symbole * s, Automate & automate, const string numero, const string grammaire);
 };
 
 //---------- Interface de la classe <Etat0> (fichier etat.h) ------

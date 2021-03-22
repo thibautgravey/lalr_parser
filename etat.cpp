@@ -19,9 +19,13 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void Etat::PrintErreur(const string & flux, int tete, Symbole * s) {
-    cout << "    " << flux << endl;
-    for (int i = 0; i < tete - 1; i++) {
+bool Etat::PrintErreur(Symbole * s, Automate & automate, const string numero, const string grammaire) {
+
+    cout << endl
+         << "    Erreur " << numero << endl;
+
+    cout << "    " << automate.GetLexer()->GetFlux() << endl;
+    for (int i = 0; i < automate.GetLexer()->GetTete() - 1; i++) {
         cout << " ";
     }
     cout << "    ^" << endl;
@@ -29,6 +33,19 @@ void Etat::PrintErreur(const string & flux, int tete, Symbole * s) {
         cout << "    Symbole '" << s->GetSymbole() << "' non reconnu dans cette grammaire." << endl;
     } else {
         cout << "    Symbole '" << s->GetSymbole() << "' innatendu à cet endroit" << endl;
+    }
+
+    cout << "    Attendu: " << grammaire << endl;
+    cout << "    Obtenu : " << s->GetSymbole() << endl;
+
+    if (*s != FIN && *s != INT) {
+        cout << "    caractère ignoré, poursuite de l'analyse" << endl
+             << endl;
+        automate.GetLexer()->Avancer();
+        return false;
+    } else {
+        automate.SetError();
+        return true;
     }
 } //Fin de PrintErreur
 
@@ -44,20 +61,7 @@ bool Etat0::Transition(Automate & automate, Symbole * s) {
             automate.Decalage(s, new Etat1);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E0" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu : INT, (" << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E0", "INT, (");
     }
     return false;
 } //Fin de Etat0::Transition
@@ -73,20 +77,7 @@ bool Etat1::Transition(Automate & automate, Symbole * s) {
         case FIN:
             return true;
         default:
-
-            cout << endl
-                 << "    Erreur E1" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: +, *, FIN" << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E1", "+, *, FIN");
     }
     return false;
 } //Fin de Etat1::Transition
@@ -103,20 +94,7 @@ bool Etat2::Transition(Automate & automate, Symbole * s) {
             automate.Decalage(s, new Etat6);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E2" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: INT, ( " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E2", " INT, (");
     }
     return false;
 } //Fin de Etat2::Transition
@@ -135,20 +113,7 @@ bool Etat3::Transition(Automate & automate, Symbole * s) {
             //delete(exprVal);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E3" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: +, *, ), FIN " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E3", "+, *, ), FIN ");
     }
     return false;
 } //Fin de Etat3::Transition
@@ -165,20 +130,7 @@ bool Etat4::Transition(Automate & automate, Symbole * s) {
             automate.Decalage(s, new Etat7);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E4" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: INT, ( " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E4", " INT, (");
     }
 
     return false;
@@ -196,20 +148,7 @@ bool Etat5::Transition(Automate & automate, Symbole * s) {
             automate.Decalage(s, new Etat8);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E5" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: INT, ( " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E5", " INT, (");
     }
     return false;
 } //Fin de Etat5::Transition
@@ -226,20 +165,7 @@ bool Etat6::Transition(Automate & automate, Symbole * s) {
             automate.Decalage(s, new Etat9);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E6" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: +, *, ) " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E6", "+, *, )");
     }
     return false;
 } //Fin de Etat6::Transition
@@ -263,20 +189,7 @@ bool Etat7::Transition(Automate & automate, Symbole * s) {
             //delete(exprPlus);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E7" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: *, +, ), FIN " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E7", "+, *, ), FIN ");
     }
     return false;
 } //Fin de Etat7::Transition
@@ -298,20 +211,7 @@ bool Etat8::Transition(Automate & automate, Symbole * s) {
             //delete(exprMult);
             break;
         default:
-
-            cout << endl
-                 << "    Erreur E8" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: +, *, ), FIN " << endl;
-            cout << "    Obtenu : " << s->GetSymbole() << endl;
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E8", "+, *, ), FIN ");
     }
     return false;
 } //Fin de Etat8::Transition
@@ -332,20 +232,7 @@ bool Etat9::Transition(Automate & automate, Symbole * s) {
             //delete(exprPar);
             break;
         default:
-
-            cout << "    Erreur E9" << endl;
-            this->PrintErreur(automate.GetLexer()->GetFlux(), automate.GetLexer()->GetTete(), s);
-            cout << "    Attendu: +, *, ), FIN " << endl;
-            cout << "    Obtenu : " << s->GetSymbole();
-            s->Affiche();
-            if (*s != FIN && *s != INT) {
-                cout << "    charactère ignoré, poursuite de l'analyse" << endl
-                     << endl;
-                automate.GetLexer()->Avancer();
-            } else {
-                automate.SetError();
-                return true;
-            }
+            return this->PrintErreur(s, automate, "E9", "+, *, ), FIN ");
     }
     return false;
 } //Fin de Etat9::Transition
